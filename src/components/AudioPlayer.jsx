@@ -193,11 +193,6 @@ export default function AudioPlayer({ shouldPlay }) {
           src="/audio/Tujh%20Mein%20Rab%20Dikhta%20Hai%20_%20Violin%20Cover%20_%20Binesh%20Babu%20bollywood%20srk%20love%20violin%20cover%20music.mp3"
           type="audio/mpeg"
         />
-        <source
-          src="/audio/Tujh Mein Rab Dikhta Hai _ Violin Cover _ Binesh Babu bollywood srk love violin cover music.mp3"
-          type="audio/mpeg"
-        />
-        <source src="/audio/wedding-music.mp3" type="audio/mpeg" />
       </audio>
 
       <button
