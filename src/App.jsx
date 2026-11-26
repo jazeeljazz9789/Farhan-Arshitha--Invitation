@@ -45,15 +45,9 @@ export default function App() {
   };
 
   return (
-    <div
-      className={`relative min-h-screen transition-colors duration-500 ${
-        isOpened
-          ? "bg-[#F7F1E6] text-[#29251F] selection:bg-[#B89B63] selection:text-white"
-          : "bg-black text-white selection:bg-white selection:text-black"
-      }`}
-    >
-      {/* Landing / Opening Cover Screen */}
-      {!isOpened && !isEntering && (
+    <div className="relative min-h-screen bg-[#F7F1E6] text-[#29251F] selection:bg-[#B89B63] selection:text-white">
+      {/* Landing / Opening Cover Screen (stays mounted during transition so there is zero black flicker) */}
+      {!isOpened && (
         <CoverScreen onEnter={handleEnterInvitation} isEntering={isEntering} />
       )}
 
@@ -61,18 +55,19 @@ export default function App() {
       {isEntering && (
         <div
           aria-live="polite"
-          className={`fixed inset-0 z-[60] flex items-center justify-center bg-black text-white px-6 text-center overflow-hidden transition-opacity duration-500 ease-out ${
+          className={`fixed inset-0 z-[60] flex items-center justify-center text-white px-6 text-center overflow-hidden transition-opacity duration-500 ease-out ${
             isFadingOutTransition ? "opacity-0 pointer-events-none" : "opacity-100"
           }`}
         >
-          {/* Background Image with Contrast Overlay */}
+          {/* Background Image with Clear High Visibility */}
           <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none" aria-hidden="true">
             <img
               src="/image/image2.jpeg"
               alt="Transition Background"
+              loading="eager"
               className="w-full h-full object-cover object-center filter contrast-[105%]"
             />
-            <div className="absolute inset-0 bg-black/60 backdrop-blur-[0.5px]"></div>
+            <div className="absolute inset-0 bg-black/25"></div>
           </div>
 
           <div className="relative z-10 max-w-xl mx-auto flex flex-col items-center animate-float-gentle animate-fade-in">
