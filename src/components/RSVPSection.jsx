@@ -180,7 +180,7 @@ export default function RSVPSection() {
                       <div className="mt-3 pt-2.5 border-t border-[#E5DCCB]/60">
                         <a
                           href={`https://wa.me/91${rsvp.contactPhone}?text=${encodeURIComponent(
-                            `Salam! I have submitted my RSVP for Farhan & Arshitha's Wedding:\n• Name: ${status.submittedName}\n• Attendance: ${status.attendance === "attending" ? "Joyfully Accepts (" + status.guestCount + " Guests)" : "Regretfully Declines"}${status.wishes ? "\n• Wishes / Dua: " + status.wishes : ""}`
+                            `I have submitted my RSVP for Farhan & Arshitha's Wedding:\n• Name: ${status.submittedName}\n• Attendance: ${status.attendance === "attending" ? "Joyfully Accepts (" + status.guestCount + " Guests)" : "Regretfully Declines"}${status.wishes ? "\n• Wishes / Dua: " + status.wishes : ""}`
                           )}`}
                           target="_blank"
                           rel="noopener noreferrer"
