@@ -14,6 +14,32 @@ export default function RSVPSection() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState({ type: null, message: "" });
 
+  const handleGuestCountChange = (e) => {
+    const val = e.target.value;
+    if (val === "") {
+      setGuestCount("");
+    } else {
+      const num = parseInt(val, 10);
+      if (!isNaN(num)) {
+        setGuestCount(Math.min(50, Math.max(1, num)));
+      }
+    }
+  };
+
+  const handleGuestCountBlur = () => {
+    if (guestCount === "" || Number(guestCount) < 1) {
+      setGuestCount(1);
+    }
+  };
+
+  const incrementGuests = () => {
+    setGuestCount((prev) => Math.min(50, (Number(prev) || 0) + 1));
+  };
+
+  const decrementGuests = () => {
+    setGuestCount((prev) => Math.max(1, (Number(prev) || 2) - 1));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus({ type: null, message: "" });
@@ -23,6 +49,8 @@ export default function RSVPSection() {
       setStatus({ type: "error", message: "Please enter your name." });
       return;
     }
+
+    const finalGuestCount = attendance === "attending" ? Math.max(1, parseInt(guestCount, 10) || 1) : 0;
 
     setIsSubmitting(true);
 
@@ -36,7 +64,7 @@ export default function RSVPSection() {
             body: JSON.stringify({
               guest_name: trimmedName,
               attendance: attendance === "attending" ? "Joyfully Accepts" : "Regretfully Declines",
-              guest_count: attendance === "attending" ? guestCount : 0,
+              guest_count: finalGuestCount,
               message: wishes.trim()
             })
           });
@@ -51,7 +79,7 @@ export default function RSVPSection() {
             body: JSON.stringify({
               guest_name: trimmedName,
               attendance,
-              guest_count: attendance === "attending" ? guestCount : 0,
+              guest_count: finalGuestCount,
               message: wishes.trim()
             })
           });
@@ -65,7 +93,7 @@ export default function RSVPSection() {
         type: "success",
         attendance,
         submittedName: trimmedName,
-        guestCount: isAttending ? guestCount : 0,
+        guestCount: finalGuestCount,
         wishes: wishes.trim(),
         title: isAttending ? "Response Received" : `Thank you, ${trimmedName}`,
         message: isAttending
@@ -79,7 +107,7 @@ export default function RSVPSection() {
           id: Date.now(),
           guest_name: trimmedName,
           attendance,
-          guest_count: attendance === "attending" ? guestCount : 0,
+          guest_count: finalGuestCount,
           message: wishes.trim() || null,
           created_at: new Date().toISOString()
         };
@@ -217,19 +245,45 @@ export default function RSVPSection() {
 
               {attendance === "attending" && (
                 <div className="animate-fade-in">
-                  <label htmlFor="guest_count" className="block font-sans text-xs uppercase tracking-widest text-[#7A7366] mb-2 font-semibold">
-                    Number of Guests Attending
-                  </label>
-                  <input
-                    id="guest_count"
-                    type="number"
-                    min="1"
-                    max="20"
-                    required
-                    value={guestCount}
-                    onChange={(e) => setGuestCount(Math.max(1, parseInt(e.target.value) || 1))}
-                    className="w-full px-4 py-3 rounded-xl bg-[#FAF7F0] border border-[#E5DCCB] hover:border-[#B89B63]/60 text-[#29251F] text-sm focus:outline-none focus:border-[#B89B63] focus:ring-1 focus:ring-[#B89B63] transition-colors duration-200"
-                  />
+                  <div className="flex items-center justify-between mb-2">
+                    <label htmlFor="guest_count" className="block font-sans text-xs uppercase tracking-widest text-[#7A7366] font-semibold">
+                      Number of Guests Attending
+                    </label>
+                    <span className="text-[11px] text-[#8C8373]">Including yourself</span>
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <button
+                      type="button"
+                      onClick={decrementGuests}
+                      aria-label="Decrease guest count"
+                      className="w-12 h-12 rounded-xl bg-[#FAF7F0] border border-[#E5DCCB] hover:border-[#B89B63] text-[#29251F] hover:text-[#B89B63] flex items-center justify-center font-bold text-xl transition-all active:scale-95 cursor-pointer shadow-sm select-none"
+                    >
+                      −
+                    </button>
+
+                    <input
+                      id="guest_count"
+                      type="number"
+                      min="1"
+                      max="50"
+                      required
+                      value={guestCount}
+                      onChange={handleGuestCountChange}
+                      onBlur={handleGuestCountBlur}
+                      placeholder="1"
+                      className="w-full text-center px-4 py-3 rounded-xl bg-[#FAF7F0] border border-[#E5DCCB] hover:border-[#B89B63]/60 text-[#29251F] font-semibold text-base focus:outline-none focus:border-[#B89B63] focus:ring-1 focus:ring-[#B89B63] transition-colors duration-200"
+                    />
+
+                    <button
+                      type="button"
+                      onClick={incrementGuests}
+                      aria-label="Increase guest count"
+                      className="w-12 h-12 rounded-xl bg-[#FAF7F0] border border-[#E5DCCB] hover:border-[#B89B63] text-[#29251F] hover:text-[#B89B63] flex items-center justify-center font-bold text-xl transition-all active:scale-95 cursor-pointer shadow-sm select-none"
+                    >
+                      +
+                    </button>
+                  </div>
                 </div>
               )}
 
