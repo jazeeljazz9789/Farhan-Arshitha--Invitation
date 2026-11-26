@@ -1,0 +1,192 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-amiri: 'Amiri', serif;
+    --font-cormorant: 'Cormorant Garamond', serif;
+    --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+    font-family: var(--font-sans);
+  }
+}
+
+/* Animations */
+@keyframes bounceSlow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes ping {
+  75%, 100% { transform: scale(2); opacity: 0; }
+}
+
+@keyframes spin {
+  to { transform: rotate(1turn); }
+}
+
+@keyframes floatGentle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes openingWordReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(12px) translateZ(0);
+    filter: blur(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) translateZ(0);
+    filter: none;
+  }
+}
+
+@keyframes openingScaleReveal {
+  0% {
+    opacity: 0;
+    transform: scale(0.88);
+    filter: blur(3px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    filter: none;
+  }
+}
+
+@keyframes openingDividerReveal {
+  0% {
+    opacity: 0;
+    transform: scaleX(0.7);
+  }
+  100% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+@keyframes openingButtonReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(14px) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes smileBounce {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-4px) scale(1.04); }
+}
+
+@keyframes smileDraw {
+  0% { stroke-dashoffset: 40; opacity: 0.3; }
+  100% { stroke-dashoffset: 0; opacity: 1; }
+}
+
+@keyframes eyePulse {
+  0%, 100% { transform: scale(1); transform-origin: center; }
+  50% { transform: scale(1.08); transform-origin: center; }
+}
+
+@keyframes sparkleSpin {
+  0%, 100% { transform: scale(0.85) rotate(0deg); opacity: 0.7; }
+  50% { transform: scale(1.25) rotate(90deg); opacity: 1; }
+}
+
+@keyframes sadSway {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(3px) rotate(-1.5deg); }
+}
+
+@keyframes tearDrop {
+  0% { opacity: 0; transform: translateY(-2px); }
+  30% { opacity: 0.9; }
+  80% { opacity: 0.7; transform: translateY(5px); }
+  100% { opacity: 0; transform: translateY(8px); }
+}
+
+/* Custom animation classes */
+.animate-bounce-slow {
+  animation: bounceSlow 2.5s infinite;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-float-gentle {
+  animation: floatGentle 2.6s ease-in-out infinite;
+}
+
+.animate-opening-word {
+  display: inline-block;
+  opacity: 0;
+  will-change: transform, opacity, filter;
+  backface-visibility: hidden;
+  animation: openingWordReveal 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-opening-scale {
+  opacity: 0;
+  animation: openingScaleReveal 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-opening-divider {
+  opacity: 0;
+  will-change: transform, opacity;
+  animation: openingDividerReveal 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-opening-button {
+  opacity: 0;
+  will-change: transform, opacity;
+  animation: openingButtonReveal 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-smile-bounce {
+  animation: smileBounce 2.5s ease-in-out infinite;
+}
+
+.animate-smile-draw {
+  stroke-dasharray: 40;
+  animation: smileDraw 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-eye-pulse {
+  animation: eyePulse 2.5s ease-in-out infinite;
+}
+
+.animate-sparkle-spin {
+  animation: sparkleSpin 2.4s ease-in-out infinite;
+}
+
+.animate-sad-sway {
+  animation: sadSway 3s ease-in-out infinite;
+}
+
+.animate-tear-drop {
+  animation: tearDrop 2.2s ease-in-out infinite;
+}
+
+/* Shadows */
+.card-dark-shadow {
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.8), 0 0 20px hsla(0, 0%, 100%, 0.03);
+}
+
+.warm-card-shadow {
+  box-shadow: 0 12px 32px -8px rgba(41, 37, 31, 0.08), 0 2px 10px -2px rgba(41, 37, 31, 0.04);
+}
